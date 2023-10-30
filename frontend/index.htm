@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Contactos</title>
-        <script type="text/javascript" src="static/js/get_all.js"></script>
-    </head>
-    <body>
-      <table id="table_contactos">
+<head>
+    <meta charset="UTF-8"> <!-- Añade la etiqueta de codificación de caracteres -->
+    <title>Contactos</title>
+    <script type="text/javascript" src="static/js/get_all.js"></script>
+</head>
+<body>
+    <table id="table_contactos">
         <thead id="thead_contactos">
-          <th>Email</th>
-          <th>Nombre</th>
-          <th>Telefono</th>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Telefono</th>
         </thead>
-      </table>
-      <script>
-        document.body.onload = getAll();
-      </script>
-    </body>
+        <tbody id="tbody_contactos">
+        </tbody>
+    </table>
+    <script>
+        // Llama a la función getAll() después de que la página se haya cargado completamente.
+        window.onload = function () {
+            getAll();
+        };
+    </script>
+</body>
 </html>

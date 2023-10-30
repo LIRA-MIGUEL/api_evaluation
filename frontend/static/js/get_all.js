@@ -1,33 +1,35 @@
-function getAll(){
-    var request = new XMLHttpRequest;
-    request.open('GET', "https://8000-liramiguel-apievaluatio-7q8jjo4hymr.ws-us105.gitpod.io");
+function getAll() {
+    var request = new XMLHttpRequest();
+    request.open('GET', 'http://127.0.0.1:8000/contactos');
     request.send();
 
-    request.onload = (e) => {
-        const response = request.responseText;
-        const json = JSON.parse(response);
-        console.log("response" + response);
-        console.log("json: " + json);
-        console.log ("status_code" + request_status);
+    request.onload = function () {
+        if (request.status === 200) {
+            const response = request.responseText;
+            const contactos = JSON.parse(response);
+            
+            const tbody_contactos = document.getElementById('tbody_contactos');
+            tbody_contactos.innerHTML = ''; // Borra cualquier contenido previo en la tabla
 
-        console.log("Email: " + json[0]["email"]);
-        console.log("Nombre: " + json[0]["nombre"]);
-        console.log("Telefono:" + json[0]["telefono"]);
+            contactos.forEach(function(contacto) {
+                var tr = document.createElement('tr');
+                var td_email = document.createElement('td');
+                var td_nombre = document.createElement('td');
+                var td_telefono = document.createElement('td');
 
-        const tbody_contactos = document.getElementById("tbody_contactos");
-        var tr = document = createElement("tr");
-        var td_email = document.createElement("td");
-        var td_nombre = document.createElement("td");
-        var td_telefono = document.createElement("td");
+                td_email.innerHTML = contacto.email;
+                td_nombre.innerHTML = contacto.nombre;
+                td_telefono.innerHTML = contacto.telefono;
 
-        td_email.innerHTML = json[0]["email"];
-        td_nombre.innerHTML = json[0]["nombre"];
-        td_telefono.innerHTML = json[0]["telefono"];
+                tr.appendChild(td_email);
+                tr.appendChild(td_nombre);
+                tr.appendChild(td_telefono);
 
-        tr.appendChild(td_email);
-        tr.appendChild(td_nombre);
-        tr.appendChild(td_telefono);
-
-        tbody_contactos.appendChild(tr);
+                tbody_contactos.appendChild(tr);
+            });
+        } else {
+            console.log('Error al realizar la solicitud. Código de estado: ' + request.status);
+        }
     };
-};
+}
+
